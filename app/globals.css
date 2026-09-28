@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/*
+ * KREW design tokens
+ * Black + white surfaces from the approved UI reference, lime for primary
+ * "go" moments, and the logo's cyan→magenta→orange gradient reserved for
+ * brand and match moments only.
+ */
+@theme {
+  --color-ink: #000000;
+  --color-ink-2: #161616;
+  --color-ink-3: #262626;
+  --color-paper: #ffffff;
+  --color-mist: #f2f2ef;
+  --color-line: #e3e3de;
+  --color-mute: #66666b;
+  --color-lime: #a8f46a;
+  --color-lime-deep: #86dd46;
+  --color-danger: #d6343a;
+  --color-k-cyan: #19c4ff;
+  --color-k-violet: #7a5cff;
+  --color-k-magenta: #f23fe0;
+  --color-k-orange: #ffa51f;
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-display: clamp(3.5rem, 11vw, 9.5rem);
+  --shadow-lift: 0 1px 0 rgb(0 0 0 / 0.04), 0 12px 32px -12px rgb(0 0 0 / 0.25);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-paper text-ink antialiased;
+    font-feature-settings: "ss01";
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-k-violet);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+}
+
+@utility font-display {
+  font-stretch: 64%;
+  font-weight: 860;
+  letter-spacing: -0.005em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+@utility font-condensed {
+  font-stretch: 78%;
+  font-weight: 780;
+  letter-spacing: -0.01em;
+}
+
+@utility bg-krew {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-k-cyan) 0%,
+    var(--color-k-violet) 34%,
+    var(--color-k-magenta) 64%,
+    var(--color-k-orange) 100%
+  );
+}
+
+@utility text-krew {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-k-cyan) 0%,
+    var(--color-k-violet) 34%,
+    var(--color-k-magenta) 64%,
+    var(--color-k-orange) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes krew-pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes krew-rise {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes krew-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
