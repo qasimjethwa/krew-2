@@ -13,7 +13,7 @@ const passwordSchema = z
 export const signUpSchema = z
   .object({
     name: z.string().trim().min(1, "Enter your name.").max(80, "Use 80 characters or fewer."),
-    email: z.string().trim().toLowerCase().email("Enter a valid email address."),
+    email: z.string().trim().toLowerCase().min(1, "Enter your email address.").email("Enter a valid email address."),
     password: passwordSchema,
     confirmPassword: z.string(),
     terms: z.literal("on", { message: "Accept the Terms of Service and Privacy Policy to continue." }),
@@ -115,10 +115,14 @@ export const profileSchema = z.object({
   gender: z.enum(["woman", "man", "non_binary", "other"], { message: "Choose your gender." }),
   bio: z.string().trim().max(BIO_MAX, `Keep your bio to ${BIO_MAX} characters.`),
   avatarPath: z.string().max(300),
+  email: z.string().trim().min(1, "Enter your email address.").email("Enter a valid email address."),
   phone: z
     .string()
     .trim()
-    .refine((v) => v === "" || /^\+?[0-9][0-9 ]{6,17}$/.test(v), "Enter a valid phone number, e.g. +91 98200 12345."),
+    .min(1, "Enter your phone number.")
+    .refine((v) => /^\+?[0-9 ()-]+$/.test(v), "Enter a valid phone number, e.g. +91 98200 12345.")
+    .transform((v) => (v.startsWith("+") ? "+" : "") + v.replace(/\D/g, ""))
+    .refine((v) => /^\+?[0-9]{10,15}$/.test(v), "Enter a phone number with 10 to 15 digits."),
   instagram: z
     .string()
     .trim()

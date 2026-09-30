@@ -59,7 +59,7 @@ export function SignUpForm() {
       <Field label="Name" htmlFor="name" errors={e.name}>
         <Input id="name" name="name" autoComplete="name" required invalid={!!e.name} leading={<User className="size-4" aria-hidden="true" />} />
       </Field>
-      <Field label="Email" htmlFor="email" errors={e.email}>
+      <Field label="Email" htmlFor="email" required errors={e.email}>
         <Input id="email" name="email" type="email" autoComplete="email" inputMode="email" required invalid={!!e.email} leading={<Mail className="size-4" aria-hidden="true" />} />
       </Field>
       <Field label="Password" htmlFor="password" errors={e.password} hint="At least 8 characters, with a letter and a number.">

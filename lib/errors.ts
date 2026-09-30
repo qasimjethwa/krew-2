@@ -13,6 +13,7 @@ const MESSAGES: Record<string, string> = {
   fitness_level_required: "Choose your fitness level.",
   availability_required: "Pick at least one time you like to work out.",
   incomplete_profile: "Add your name, date of birth and gender to finish your profile.",
+  incomplete_contact: "Add your email and phone number to finish your profile.",
   incomplete_location: "Set your location before finishing your profile.",
   incomplete_activities: "Choose your activities before finishing your profile.",
   incomplete_goals: "Set your goals, fitness level and schedule before finishing your profile.",

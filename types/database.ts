@@ -45,6 +45,8 @@ export type Database = {
           require_contact_approval: boolean | null;
           custom_activity: string | null;
           custom_goal: string | null;
+          email: string | null;
+          phone: string | null;
           onboarding_completed_at: string | null;
           created_at: string;
           updated_at: string;
@@ -63,6 +65,8 @@ export type Database = {
           require_contact_approval?: boolean | null;
           custom_activity?: string | null;
           custom_goal?: string | null;
+          email?: string | null;
+          phone?: string | null;
           onboarding_completed_at?: string | null;
           created_at?: string;
           updated_at?: string;
@@ -79,6 +83,7 @@ export type Database = {
           require_contact_approval?: boolean | null;
           custom_activity?: string | null;
           custom_goal?: string | null;
+          phone?: string | null;
         };
         Relationships: [];
       };

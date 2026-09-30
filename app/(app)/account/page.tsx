@@ -161,7 +161,7 @@ export default async function AccountPage({ searchParams }: PageProps<"/account"
 
         <Section title="Contact details" editHref="/onboarding/profile?edit=1#contact">
           <dl className="divide-y divide-line">
-            <Row label="Phone / WhatsApp" optional value={contacts?.phone} />
+            <Row label="Phone / WhatsApp" value={p?.phone ?? contacts?.phone} />
             <Row label="Instagram" optional value={contacts?.instagram ? `@${contacts.instagram}` : null} />
             <Row label="Share account email" optional value={contacts?.share_email ? email ?? "Yes" : "No"} />
           </dl>

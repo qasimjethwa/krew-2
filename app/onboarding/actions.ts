@@ -159,12 +159,17 @@ export async function savePreferences(_prev: FormState, fd: FormData): Promise<F
 export async function saveProfile(_prev: FormState, fd: FormData): Promise<FormState> {
   const userId = await requireUserId();
   const edit = isEdit(fd);
+  const supabase = await createClient();
+  // Email always comes from the signed-in account (email sign-up or Google), never the form.
+  const { data: claims } = await supabase.auth.getClaims();
+  const accountEmail = claims?.claims?.email;
   const parsed = profileSchema.safeParse({
     fullName: fd.get("fullName"),
     dateOfBirth: fd.get("dateOfBirth"),
     gender: fd.get("gender"),
     bio: String(fd.get("bio") ?? ""),
     avatarPath: String(fd.get("avatarPath") ?? ""),
+    email: typeof accountEmail === "string" ? accountEmail : "",
     phone: String(fd.get("phone") ?? ""),
     instagram: String(fd.get("instagram") ?? ""),
     shareEmail: fd.get("shareEmail") === "on",
@@ -178,7 +183,6 @@ export async function saveProfile(_prev: FormState, fd: FormData): Promise<FormS
     return { status: "error", message: "That picture couldn't be used. Upload it again." };
   }
 
-  const supabase = await createClient();
   const { data: before } = await supabase.from("profiles").select("avatar_path, onboarding_completed_at").eq("id", userId).single();
 
   const { error } = await supabase
@@ -189,6 +193,7 @@ export async function saveProfile(_prev: FormState, fd: FormData): Promise<FormS
       gender: d.gender,
       bio: d.bio || null,
       avatar_path: avatarPath,
+      phone: d.phone,
     })
     .eq("id", userId);
   if (error) {
@@ -197,7 +202,7 @@ export async function saveProfile(_prev: FormState, fd: FormData): Promise<FormS
   }
 
   const { error: contactError } = await supabase.from("profile_contacts").upsert(
-    { user_id: userId, phone: d.phone || null, instagram: d.instagram || null, share_email: d.shareEmail },
+    { user_id: userId, phone: d.phone, instagram: d.instagram || null, share_email: d.shareEmail },
     { onConflict: "user_id" },
   );
   if (contactError) {

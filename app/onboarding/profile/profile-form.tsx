@@ -32,6 +32,7 @@ export function ProfileForm({
     bio: string;
     avatarPath: string | null;
     externalAvatar: string | null;
+    email: string;
     phone: string;
     instagram: string;
     shareEmail: boolean;
@@ -92,10 +93,13 @@ export function ProfileForm({
         <p className="flex items-center gap-2 font-semibold">
           <Lock className="size-4" aria-hidden="true" /> Contact details
         </p>
-        <p className="mt-1 text-sm text-mute">Only shared with people you connect with. Add at least one so your matches can reach you.</p>
+        <p className="mt-1 text-sm text-mute">Only shared with people you connect with, so your matches can reach you.</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Field label="Phone / WhatsApp" htmlFor="phone" optional errors={e.phone}>
-            <Input id="phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" placeholder="+91 98200 12345" defaultValue={defaults.phone} invalid={!!e.phone} />
+          <Field label="Email" htmlFor="email" required errors={e.email} hint="From your account sign-in.">
+            <Input id="email" type="email" value={defaults.email} readOnly required invalid={!!e.email} className="text-mute" />
+          </Field>
+          <Field label="Phone / WhatsApp" htmlFor="phone" required errors={e.phone}>
+            <Input id="phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" placeholder="+91 98200 12345" defaultValue={defaults.phone} required invalid={!!e.phone} />
           </Field>
           <Field label="Instagram" htmlFor="instagram" optional errors={e.instagram}>
             <Input id="instagram" name="instagram" autoCapitalize="none" placeholder="yourhandle" defaultValue={defaults.instagram} invalid={!!e.instagram} leading={<span className="text-sm">@</span>} />

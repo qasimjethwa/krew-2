@@ -18,6 +18,7 @@ export function Field({
   htmlFor,
   hint,
   optional,
+  required,
   errors,
   children,
   className,
@@ -26,6 +27,7 @@ export function Field({
   htmlFor: string;
   hint?: ReactNode;
   optional?: boolean;
+  required?: boolean;
   errors?: string[];
   children: ReactNode;
   className?: string;
@@ -35,6 +37,7 @@ export function Field({
       <label htmlFor={htmlFor} className="mb-1.5 flex items-baseline gap-2 text-sm font-semibold text-ink">
         {label}
         {optional ? <span className="font-normal text-mute">Optional</span> : null}
+        {required ? <span className="font-normal text-mute">Required</span> : null}
       </label>
       {children}
       {hint && !errors?.length ? <p className="mt-1.5 text-sm text-mute">{hint}</p> : null}

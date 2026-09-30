@@ -47,7 +47,7 @@ export const getOnboardingSnapshot = cache(async () => {
     activities: activitySlugs.length > 0 || Boolean(p?.custom_activity),
     goals: (goalSlugs.length > 0 || Boolean(p?.custom_goal)) && Boolean(p?.fitness_level) && (p?.availability?.length ?? 0) > 0,
     preferences: Boolean(p?.gender_preference) && p?.require_contact_approval != null,
-    profile: Boolean(p?.full_name && p?.date_of_birth && p?.gender),
+    profile: Boolean(p?.full_name && p?.date_of_birth && p?.gender && p?.phone),
   };
 
   const firstIncomplete = ONBOARDING_STEPS.find((s) => !done[s.slug])?.slug ?? null;

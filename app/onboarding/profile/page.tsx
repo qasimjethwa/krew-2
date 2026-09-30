@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { StepShell } from "@/components/onboarding/step-shell";
 import { requireUserId } from "@/lib/auth";
 import { getOnboardingSnapshot } from "@/lib/onboarding";
+import { createClient } from "@/lib/supabase/server";
 import { ProfileForm } from "./profile-form";
 
 export const metadata: Metadata = { title: "Create your profile" };
@@ -13,6 +14,9 @@ export default async function ProfileStep({ searchParams }: PageProps<"/onboardi
   const snap = await getOnboardingSnapshot();
   if (!snap) redirect("/auth");
   const p = snap.profile;
+  const supabase = await createClient();
+  const { data: claims } = await supabase.auth.getClaims();
+  const accountEmail = typeof claims?.claims?.email === "string" ? claims.claims.email : null;
 
   return (
     <StepShell
@@ -34,7 +38,8 @@ export default async function ProfileStep({ searchParams }: PageProps<"/onboardi
           bio: p?.bio ?? "",
           avatarPath: p?.avatar_path ?? null,
           externalAvatar: p?.external_avatar_url ?? null,
-          phone: snap.contacts?.phone ?? "",
+          email: accountEmail ?? p?.email ?? "",
+          phone: p?.phone ?? snap.contacts?.phone ?? "",
           instagram: snap.contacts?.instagram ?? "",
           shareEmail: snap.contacts?.share_email ?? false,
         }}
