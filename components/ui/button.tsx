@@ -11,7 +11,7 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary: "bg-ink text-paper hover:bg-ink-3",
-  accent: "bg-lime text-ink hover:bg-lime-deep",
+  accent: "bg-[#FF2DB2] text-ink hover:bg-[#FF4BC1]",
   outline: "border border-line bg-paper text-ink hover:border-ink",
   ghost: "text-ink hover:bg-mist",
   inverse: "bg-paper text-ink hover:bg-mist",

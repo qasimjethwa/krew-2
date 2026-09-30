@@ -49,7 +49,7 @@ export default function LandingPage() {
               <h1 className="font-display text-[length:var(--text-display)]">
                 Find your
                 <br />
-                <span className="text-lime">KREW.</span>
+                <span className="text-[#FF2DB2]">KREW.</span>
               </h1>
               <p className="mt-7 max-w-md text-lg leading-relaxed text-paper/75">
                 Meet people nearby who share your sports, goals and schedule.
