@@ -212,3 +212,4 @@ No other code changes — nothing references a hardcoded domain.
 | Discover is empty | You're the only user nearby — create a second account in another browser with overlapping radius |
 | Profile photos don't load | Check `NEXT_PUBLIC_SUPABASE_URL` at build time (image domain allow-list) and that the `avatars` bucket exists |
 | Build fails on types after DB change | Regenerate with `npm run db:types` and update `types/database.ts` |
+hello
